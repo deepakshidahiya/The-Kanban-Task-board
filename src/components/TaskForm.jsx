@@ -19,7 +19,8 @@ function TaskForm({ onAddTask }) {
       <input
         type="text"
         name="title"
-        placeholder="Task title"
+        placeholder="What needs to be done?"
+        aria-label="Task title"
         className="task-form-input"
         value={title}
         onChange={(event) => setTitle(event.target.value)}
@@ -27,6 +28,7 @@ function TaskForm({ onAddTask }) {
 
       <select
         name="priority"
+        aria-label="Priority"
         className="task-form-select"
         value={priority}
         onChange={(event) => setPriority(event.target.value)}

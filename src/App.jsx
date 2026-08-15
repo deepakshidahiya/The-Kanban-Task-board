@@ -17,11 +17,15 @@ function App() {
     setTasks((prevTasks) => [...prevTasks, newTask])
   }
 
+  function deleteTask(id) {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
+  }
+
   return (
     <div className="app">
       <Header />
       <TaskForm onAddTask={addTask} />
-      <KanbanBoard tasks={tasks} />
+      <KanbanBoard tasks={tasks} onDeleteTask={deleteTask} />
     </div>
   )
 }

@@ -8,12 +8,9 @@ A React-based Kanban task management board built for Sprint 5.
 - Priority selection
 - Delete tasks
 - Move tasks between columns
-- Three task columns:
-  - To Do
-  - In Progress
-  - Done
-- Responsive UI
-- Lavender theme
+- Inline task editing
+- To Do / In Progress / Done columns
+- Responsive lavender UI
 
 ## Technology
 

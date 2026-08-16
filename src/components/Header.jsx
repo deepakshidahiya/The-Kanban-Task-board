@@ -2,10 +2,15 @@ function Header() {
   return (
     <header className="app-header">
       <div className="app-header-mark" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="5" width="4" height="14" rx="1.5" fill="#ffffff" />
-          <rect x="10" y="5" width="4" height="9" rx="1.5" fill="#ffffff" opacity="0.85" />
-          <rect x="17" y="5" width="4" height="6" rx="1.5" fill="#ffffff" opacity="0.7" />
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="var(--primary)" strokeWidth="2" />
+          <path
+            d="M8 12.5L11 15.5L16 9.5"
+            stroke="var(--primary)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </div>
       <h1>Kanban Task Board</h1>

@@ -15,12 +15,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-xs);
-  background: var(--primary);
   margin-bottom: 16px;
-  box-shadow: var(--shadow-sm);
+}
+
+.app-header-mark svg {
+  width: 56px;
+  height: 56px;
+}
+
+@media (max-width: 720px) {
+  .app-header-mark svg {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 .app-header h1 {
@@ -36,7 +43,7 @@
   font-size: 15px;
 }
 
-/* TaskForm */
+/* Task Form */
 
 .task-form {
   display: flex;
@@ -98,7 +105,7 @@
   outline-offset: 2px;
 }
 
-/* KanbanBoard */
+/* Kanban Board */
 
 .kanban-board {
   display: grid;
@@ -197,7 +204,7 @@
   color: var(--text-muted);
 }
 
-/* TaskCard */
+/* Task Card */
 
 .task-card {
   background: var(--surface);
@@ -208,10 +215,11 @@
   flex-direction: column;
   gap: 12px;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease,
+    background 0.15s ease;
 }
 
-.task-card:hover {
+.task-card:hover:not(.task-card--editing) {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
   border-color: var(--primary);
@@ -227,37 +235,9 @@
   overflow-wrap: anywhere;
 }
 
-.task-card-moves {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.task-card-move {
-  padding: 6px 12px;
-  border: 1px solid var(--lavender-soft);
-  border-radius: var(--radius-xs);
-  background: var(--lavender-tint);
-  color: var(--primary-dark);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.task-card-move:hover {
-  background: var(--lavender-soft);
-  border-color: var(--primary);
-}
-
-.task-card-move:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
 .task-card-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -274,25 +254,124 @@
   white-space: nowrap;
 }
 
-.task-card-delete {
-  padding: 7px 14px;
-  border: 1px solid transparent;
-  border-radius: var(--radius-xs);
-  background: var(--danger-tint);
-  color: var(--danger);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s ease, color 0.15s ease;
+/* Task Editing */
+
+.task-card--editing {
+  border-color: var(--primary);
+  background: var(--lavender-tint);
 }
 
-.task-card-delete:hover {
-  background: var(--danger);
+.task-card-edit-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-xs);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.task-card-edit-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 92, 252, 0.15);
+}
+
+.task-card-edit-input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
+.task-card-edit-error {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--danger);
+}
+
+/* Buttons */
+
+.task-card-moves,
+.task-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.task-card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.task-card-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Primary: Edit / Save */
+.task-card-btn--primary {
+  border-color: var(--primary);
+  background: var(--primary);
   color: #fff;
 }
 
-.task-card-delete:focus-visible {
-  outline: 2px solid var(--danger);
-  outline-offset: 2px;
+.task-card-btn--primary:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+/* Secondary: Move */
+.task-card-btn--secondary {
+  border-color: var(--lavender-soft);
+  background: var(--lavender-tint);
+  color: var(--primary-dark);
+}
+
+.task-card-btn--secondary:hover {
+  background: var(--lavender-soft);
+  border-color: var(--primary);
+}
+
+/* Tertiary: Cancel */
+.task-card-btn--tertiary {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+.task-card-btn--tertiary:hover {
+  background: var(--lavender-tint);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+/* Danger: Delete */
+.task-card-btn--danger {
+  border-color: transparent;
+  background: var(--danger-tint);
+  color: var(--danger);
+}
+
+.task-card-btn--danger:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+.task-card-btn--danger:focus-visible {
+  outline-color: var(--danger);
 }

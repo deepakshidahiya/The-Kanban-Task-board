@@ -6,7 +6,7 @@ const columns = [
   { id: 'done', title: 'Done', status: 'done' },
 ]
 
-function KanbanBoard({ tasks, onDeleteTask, onMoveTask }) {
+function KanbanBoard({ tasks, onDeleteTask, onMoveTask, onUpdateTaskTitle }) {
   return (
     <div className="kanban-board">
       {columns.map((column) => (
@@ -16,6 +16,7 @@ function KanbanBoard({ tasks, onDeleteTask, onMoveTask }) {
           tasks={tasks.filter((task) => task.status === column.status)}
           onDeleteTask={onDeleteTask}
           onMoveTask={onMoveTask}
+          onUpdateTaskTitle={onUpdateTaskTitle}
           accent={column.id}
         />
       ))}

@@ -29,6 +29,14 @@ function App() {
     )
   }
 
+  function updateTaskTitle(taskId, newTitle) {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, title: newTitle } : task
+      )
+    )
+  }
+
   return (
     <div className="app">
       <Header />
@@ -37,6 +45,7 @@ function App() {
         tasks={tasks}
         onDeleteTask={deleteTask}
         onMoveTask={moveTask}
+        onUpdateTaskTitle={updateTaskTitle}
       />
     </div>
   )

@@ -1,6 +1,13 @@
 import TaskCard from './TaskCard'
 
-function Column({ title, tasks, onDeleteTask, onMoveTask, accent }) {
+function Column({
+  title,
+  tasks,
+  onDeleteTask,
+  onMoveTask,
+  onUpdateTaskTitle,
+  accent,
+}) {
   return (
     <div className={`column${accent ? ` column--${accent}` : ''}`}>
       <div className="column-header">
@@ -23,6 +30,7 @@ function Column({ title, tasks, onDeleteTask, onMoveTask, accent }) {
               task={task}
               onDeleteTask={onDeleteTask}
               onMoveTask={onMoveTask}
+              onUpdateTaskTitle={onUpdateTaskTitle}
             />
           ))
         )}

@@ -209,6 +209,7 @@
 .task-card {
   background: var(--surface);
   border: 1px solid var(--border);
+  border-left: 4px solid var(--priority-accent, var(--border));
   border-radius: var(--radius-sm);
   padding: 16px;
   display: flex;
@@ -223,6 +224,22 @@
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
   border-color: var(--primary);
+  border-left-color: var(--priority-accent, var(--primary));
+}
+
+.task-card.priority-high {
+  --priority-accent: var(--danger);
+  --priority-accent-tint: var(--danger-tint);
+}
+
+.task-card.priority-medium {
+  --priority-accent: var(--warning);
+  --priority-accent-tint: var(--warning-tint);
+}
+
+.task-card.priority-low {
+  --priority-accent: var(--success);
+  --priority-accent-tint: var(--success-tint);
 }
 
 .task-card-title {
@@ -245,12 +262,12 @@
 
 .task-card-priority {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 4px 10px;
   border-radius: 999px;
-  color: var(--text-muted);
-  background: var(--lavender-tint);
-  border: 1px solid var(--border);
+  color: var(--priority-accent, var(--text-muted));
+  background: var(--priority-accent-tint, var(--lavender-tint));
+  border: 1px solid var(--priority-accent, var(--border));
   white-space: nowrap;
 }
 

@@ -19,6 +19,7 @@ function TaskCard({ task, onDeleteTask, onMoveTask, onUpdateTaskTitle }) {
 
   const moveOptions = MOVE_OPTIONS[task.status] ?? []
   const errorId = `task-error-${task.id}`
+  const priorityClass = `priority-${task.priority.toLowerCase()}`
 
   useEffect(() => {
     if (isEditing) {
@@ -76,7 +77,9 @@ function TaskCard({ task, onDeleteTask, onMoveTask, onUpdateTaskTitle }) {
   }
 
   return (
-    <div className={`task-card${isEditing ? ' task-card--editing' : ''}`}>
+    <div
+      className={`task-card ${priorityClass}${isEditing ? ' task-card--editing' : ''}`}
+    >
       {isEditing ? (
         <input
           ref={inputRef}

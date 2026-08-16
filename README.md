@@ -23,3 +23,16 @@ A React-based Kanban task management board built for Sprint 5.
 - JavaScript
 - CSS
 - dnd-kit
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## Production Build
+
+```bash
+npm run build
+```

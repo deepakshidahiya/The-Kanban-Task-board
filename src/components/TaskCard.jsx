@@ -73,6 +73,10 @@ function TaskCard({ task, onDeleteTask, onUpdateTaskTitle }) {
     }
   }
 
+  function stopKeyPropagation(event) {
+    event.stopPropagation()
+  }
+
   return (
     <div
       ref={setNodeRef}
@@ -114,6 +118,7 @@ function TaskCard({ task, onDeleteTask, onUpdateTaskTitle }) {
                 type="button"
                 className="task-card-btn task-card-btn--primary"
                 onClick={saveEdit}
+                onKeyDown={stopKeyPropagation}
                 aria-label={`Save changes to ${task.title}`}
               >
                 Save
@@ -122,6 +127,7 @@ function TaskCard({ task, onDeleteTask, onUpdateTaskTitle }) {
                 type="button"
                 className="task-card-btn task-card-btn--tertiary"
                 onClick={cancelEdit}
+                onKeyDown={stopKeyPropagation}
                 aria-label={`Cancel editing ${task.title}`}
               >
                 Cancel
@@ -133,6 +139,7 @@ function TaskCard({ task, onDeleteTask, onUpdateTaskTitle }) {
               type="button"
               className="task-card-btn task-card-btn--primary"
               onClick={startEditing}
+              onKeyDown={stopKeyPropagation}
               aria-label={`Edit ${task.title}`}
             >
               Edit
@@ -142,6 +149,7 @@ function TaskCard({ task, onDeleteTask, onUpdateTaskTitle }) {
             type="button"
             className="task-card-btn task-card-btn--danger"
             onClick={() => onDeleteTask(task.id)}
+            onKeyDown={stopKeyPropagation}
             aria-label={`Delete ${task.title}`}
           >
             Delete

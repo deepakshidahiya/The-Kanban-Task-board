@@ -7,6 +7,8 @@ function Column({
   onMoveTask,
   onUpdateTaskTitle,
   accent,
+  isSearchActive,
+  hasNoResults,
 }) {
   return (
     <div className={`column${accent ? ` column--${accent}` : ''}`}>
@@ -17,12 +19,20 @@ function Column({
 
       <div className="column-tasks">
         {tasks.length === 0 ? (
-          <div className="column-empty">
-            <p className="column-empty-title">No tasks yet</p>
-            <p className="column-empty-subtitle">
-              Add a task above to get started.
-            </p>
-          </div>
+          isSearchActive && hasNoResults ? null : (
+            <div className="column-empty">
+              {isSearchActive ? (
+                <p className="column-empty-title">No tasks match your search.</p>
+              ) : (
+                <>
+                  <p className="column-empty-title">No tasks yet</p>
+                  <p className="column-empty-subtitle">
+                    Add a task above to get started.
+                  </p>
+                </>
+              )}
+            </div>
+          )
         ) : (
           tasks.map((task) => (
             <TaskCard

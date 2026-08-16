@@ -9,7 +9,6 @@ const columns = [
 function KanbanBoard({
   tasks,
   onDeleteTask,
-  onMoveTask,
   onUpdateTaskTitle,
   isSearchActive,
   hasNoResults,
@@ -19,10 +18,10 @@ function KanbanBoard({
       {columns.map((column) => (
         <Column
           key={column.id}
+          id={column.status}
           title={column.title}
           tasks={tasks.filter((task) => task.status === column.status)}
           onDeleteTask={onDeleteTask}
-          onMoveTask={onMoveTask}
           onUpdateTaskTitle={onUpdateTaskTitle}
           accent={column.id}
           isSearchActive={isSearchActive}

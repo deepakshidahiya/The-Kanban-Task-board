@@ -1,15 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import { useDraggable } from '@dnd-kit/core'
 
-const MOVE_OPTIONS = {
-  todo: [{ status: 'in-progress', label: 'Move to In Progress' }],
-  'in-progress': [
-    { status: 'todo', label: 'Move to To Do' },
-    { status: 'done', label: 'Move to Done' },
-  ],
-  done: [{ status: 'in-progress', label: 'Move to In Progress' }],
-}
-
-function TaskCard({ task, onDeleteTask, onMoveTask, onUpdateTaskTitle }) {
+function TaskCard({ task, onDeleteTask, onUpdateTaskTitle }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editedTitle, setEditedTitle] = useState(task.title)
   const [error, setError] = useState('')
@@ -17,9 +9,14 @@ function TaskCard({ task, onDeleteTask, onMoveTask, onUpdateTaskTitle }) {
   const editButtonRef = useRef(null)
   const shouldRefocusEditButton = useRef(false)
 
-  const moveOptions = MOVE_OPTIONS[task.status] ?? []
   const errorId = `task-error-${task.id}`
   const priorityClass = `priority-${task.priority.toLowerCase()}`
+
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: task.id,
+    data: { status: task.status },
+    disabled: isEditing,
+  })
 
   useEffect(() => {
     if (isEditing) {
@@ -78,7 +75,12 @@ function TaskCard({ task, onDeleteTask, onMoveTask, onUpdateTaskTitle }) {
 
   return (
     <div
-      className={`task-card ${priorityClass}${isEditing ? ' task-card--editing' : ''}`}
+      ref={setNodeRef}
+      className={`task-card ${priorityClass}${isEditing ? ' task-card--editing' : ''}${
+        isDragging ? ' task-card--dragging' : ''
+      }`}
+      {...(!isEditing ? attributes : {})}
+      {...(!isEditing ? listeners : {})}
     >
       {isEditing ? (
         <input
@@ -100,21 +102,6 @@ function TaskCard({ task, onDeleteTask, onMoveTask, onUpdateTaskTitle }) {
         <p id={errorId} className="task-card-edit-error" role="alert">
           {error}
         </p>
-      )}
-
-      {moveOptions.length > 0 && (
-        <div className="task-card-moves">
-          {moveOptions.map((option) => (
-            <button
-              key={option.status}
-              type="button"
-              className="task-card-btn task-card-btn--secondary"
-              onClick={() => onMoveTask(task.id, option.status)}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
       )}
 
       <div className="task-card-footer">

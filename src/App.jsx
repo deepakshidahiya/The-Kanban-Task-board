@@ -1,4 +1,13 @@
 import { useEffect, useState } from 'react'
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  KeyboardSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import Header from './components/Header'
 import TaskForm from './components/TaskForm'
 import SearchBar from './components/SearchBar'
@@ -21,6 +30,12 @@ function loadStoredTasks() {
 function App() {
   const [tasks, setTasks] = useState(loadStoredTasks)
   const [searchTerm, setSearchTerm] = useState('')
+  const [activeTask, setActiveTask] = useState(null)
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(KeyboardSensor)
+  )
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
@@ -56,6 +71,26 @@ function App() {
     )
   }
 
+  function handleDragStart(event) {
+    const task = tasks.find((item) => item.id === event.active.id)
+    setActiveTask(task ?? null)
+  }
+
+  function handleDragEnd(event) {
+    const { active, over } = event
+    setActiveTask(null)
+    if (!over) return
+
+    const newStatus = over.id
+    if (active.data.current?.status !== newStatus) {
+      moveTask(active.id, newStatus)
+    }
+  }
+
+  function handleDragCancel() {
+    setActiveTask(null)
+  }
+
   const trimmedSearch = searchTerm.trim().toLowerCase()
   const isSearchActive = trimmedSearch.length > 0
   const filteredTasks = isSearchActive
@@ -74,14 +109,37 @@ function App() {
         resultCount={filteredTasks.length}
         isSearchActive={isSearchActive}
       />
-      <KanbanBoard
-        tasks={filteredTasks}
-        onDeleteTask={deleteTask}
-        onMoveTask={moveTask}
-        onUpdateTaskTitle={updateTaskTitle}
-        isSearchActive={isSearchActive}
-        hasNoResults={hasNoResults}
-      />
+
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onDragCancel={handleDragCancel}
+      >
+        <KanbanBoard
+          tasks={filteredTasks}
+          onDeleteTask={deleteTask}
+          onUpdateTaskTitle={updateTaskTitle}
+          isSearchActive={isSearchActive}
+          hasNoResults={hasNoResults}
+        />
+
+        <DragOverlay>
+          {activeTask ? (
+            <div
+              className={`task-card priority-${activeTask.priority.toLowerCase()} task-card--overlay`}
+            >
+              <p className="task-card-title">{activeTask.title}</p>
+              <div className="task-card-footer">
+                <span className="task-card-priority">
+                  Priority: {activeTask.priority}
+                </span>
+              </div>
+            </div>
+          ) : null}
+        </DragOverlay>
+      </DndContext>
     </div>
   )
 }

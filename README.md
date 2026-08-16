@@ -8,7 +8,7 @@ A React-based Kanban task management board built for Sprint 5.
 - Priority levels (High, Medium, Low)
 - Priority-based visual indicators
 - Delete tasks
-- Move tasks between columns
+- Drag-and-drop task movement between columns
 - Inline task editing
 - Persistent task state using browser localStorage
 - Real-time task search
@@ -22,3 +22,4 @@ A React-based Kanban task management board built for Sprint 5.
 - Vite
 - JavaScript
 - CSS
+- dnd-kit

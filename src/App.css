@@ -220,6 +220,7 @@
   border-radius: var(--radius-md);
   padding: 18px;
   min-height: 220px;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .column--todo {
@@ -232,6 +233,11 @@
 
 .column--done {
   --column-accent: var(--success);
+}
+
+.column--drag-over {
+  border-color: var(--primary);
+  background: var(--lavender-tint);
 }
 
 .column-header {
@@ -298,8 +304,10 @@
   flex-direction: column;
   gap: 12px;
   box-shadow: var(--shadow-sm);
+  cursor: grab;
+  touch-action: none;
   transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease,
-    background 0.15s ease;
+    background 0.15s ease, opacity 0.15s ease;
 }
 
 .task-card:hover:not(.task-card--editing) {
@@ -307,6 +315,15 @@
   transform: translateY(-2px);
   border-color: var(--primary);
   border-left-color: var(--priority-accent, var(--primary));
+}
+
+.task-card--dragging {
+  opacity: 0.4;
+}
+
+.task-card--overlay {
+  cursor: grabbing;
+  box-shadow: var(--shadow-md);
 }
 
 .task-card.priority-high {
@@ -371,6 +388,7 @@
   line-height: 1.5;
   color: var(--text);
   background: var(--surface);
+  cursor: text;
 }
 
 .task-card-edit-input:focus {
@@ -392,7 +410,6 @@
 
 /* Buttons */
 
-.task-card-moves,
 .task-card-actions {
   display: flex;
   flex-wrap: wrap;
@@ -431,18 +448,6 @@
 .task-card-btn--primary:hover {
   background: var(--primary-dark);
   border-color: var(--primary-dark);
-}
-
-/* Secondary: Move */
-.task-card-btn--secondary {
-  border-color: var(--lavender-soft);
-  background: var(--lavender-tint);
-  color: var(--primary-dark);
-}
-
-.task-card-btn--secondary:hover {
-  background: var(--lavender-soft);
-  border-color: var(--primary);
 }
 
 /* Tertiary: Cancel */

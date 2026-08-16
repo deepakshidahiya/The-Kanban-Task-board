@@ -1,21 +1,30 @@
 :root {
-  --text: #3f3f46;
-  --text-h: #18181b;
-  --text-muted: #71717a;
-  --bg: #f4f5f8;
+  --primary: #7c5cfc;
+  --primary-dark: #5b3fd6;
+  --lavender-soft: #eee9ff;
+  --lavender-tint: #f7f5ff;
+  --bg: #f6f4fb;
   --surface: #ffffff;
-  --border: #e4e4e7;
-  --accent: #6366f1;
-  --accent-hover: #4f46e5;
-  --danger: #ef4444;
-  --danger-bg: #fef2f2;
+  --text: #24213a;
+  --text-muted: #6f6a82;
+  --border: #e7e2f0;
+  --success: #3baa72;
+  --success-tint: #e7f5ec;
+  --danger: #d95c6a;
+  --danger-tint: #fbeaec;
+  --info: #6c7ce8;
+  --info-tint: #e9eafb;
 
-  --shadow-sm: 0 1px 2px rgba(15, 15, 20, 0.06);
-  --shadow-md: 0 6px 16px rgba(15, 15, 20, 0.08);
+  --radius-lg: 16px;
+  --radius-md: 14px;
+  --radius-sm: 12px;
+  --radius-xs: 10px;
+
+  --shadow-sm: 0 1px 2px rgba(36, 33, 58, 0.06);
+  --shadow-md: 0 10px 24px rgba(91, 63, 214, 0.12);
 
   font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
   color: var(--text);
-  background: var(--bg);
 }
 
 *,
@@ -27,10 +36,11 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background: linear-gradient(180deg, var(--lavender-tint) 0%, var(--bg) 420px);
 }
 
 h1,
 h2 {
-  color: var(--text-h);
+  color: var(--text);
   margin: 0;
 }

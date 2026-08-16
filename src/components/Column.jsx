@@ -1,8 +1,8 @@
 import TaskCard from './TaskCard'
 
-function Column({ title, tasks, onDeleteTask }) {
+function Column({ title, tasks, onDeleteTask, onMoveTask, accent }) {
   return (
-    <div className="column">
+    <div className={`column${accent ? ` column--${accent}` : ''}`}>
       <div className="column-header">
         <h2 className="column-title">{title}</h2>
         <span className="column-count">{tasks.length}</span>
@@ -18,7 +18,12 @@ function Column({ title, tasks, onDeleteTask }) {
           </div>
         ) : (
           tasks.map((task) => (
-            <TaskCard key={task.id} task={task} onDeleteTask={onDeleteTask} />
+            <TaskCard
+              key={task.id}
+              task={task}
+              onDeleteTask={onDeleteTask}
+              onMoveTask={onMoveTask}
+            />
           ))
         )}
       </div>

@@ -21,11 +21,23 @@ function App() {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
   }
 
+  function moveTask(taskId, newStatus) {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, status: newStatus } : task
+      )
+    )
+  }
+
   return (
     <div className="app">
       <Header />
       <TaskForm onAddTask={addTask} />
-      <KanbanBoard tasks={tasks} onDeleteTask={deleteTask} />
+      <KanbanBoard
+        tasks={tasks}
+        onDeleteTask={deleteTask}
+        onMoveTask={moveTask}
+      />
     </div>
   )
 }
